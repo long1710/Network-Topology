@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MapDiagrammer<New folder_d931b5e8>",
+            "request": "launch",
+            "mainClass": "mapping.MapDiagrammer",
+            "projectName": "New folder_d931b5e8"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<New folder_d931b5e8>",
+            "request": "launch",
+            "mainClass": "simulator.Main",
+            "projectName": "New folder_d931b5e8"
+        }
+    ]
+}

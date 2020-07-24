@@ -1,0 +1,27 @@
+Distribution for Parallel Resource Management Algorithm Simulator (PReMAS)
+
+Code and documentation available from http://faculty.knox.edu/dbunde/premas/
+
+Contents (top level):
+1) README: This file.
+
+2) LICENSE: Licensing information.
+
+3) simulator: Directory containing Java source for the simulator.  The
+   main function is in Main.java.
+     Compile with: javac simulator/Main.java
+     Run with: java simulator/Main --help
+
+4) mapping: Directory containing Java source for the task mapping
+   parts.  These are partially included in the main simulator, but we 
+   have mainly run them as a stand-alone program.  The main function
+   for stand-alone mode is in MapDiagrammer.
+     Compile with: javac mapping/MapDiagrammer.java
+     Run with: java mapping/MapDiagrammer
+
+5) convert_trace.pl: Perl script to convert Parallel Workloads Archive
+   traces into format for simulator
+
+This simulator is still under development, including the
+documentation.  Please contribute improvements that you make.  You can
+also contact David Bunde <dbunde@knox.edu> with questions/comments.
