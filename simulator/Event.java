@@ -57,6 +57,7 @@ public abstract class Event implements Comparable<Event> {
 			PriorityQueue<Event> events, Statistics stats) {
 		//the commmon part of different subclass's happen methods;
 		//tries to start jobs if appropriate
+		
 		if(handleArrivalsSeparately || (events.size() == 0) ||
 				(events.peek().getTime() != time)) {
 			AllocInfo allocInfo;

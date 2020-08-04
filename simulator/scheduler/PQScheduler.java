@@ -92,9 +92,8 @@ public class PQScheduler extends Scheduler implements CopyableScheduler {
 
 		AllocInfo allocInfo = null;
 		Job job = toRun.peek();
-		if (alloc.canAllocate(job)) {
+		if (alloc.canAllocate(job)) 
 			allocInfo = alloc.allocate(job);
-		} 
 		if(allocInfo != null) {
 			toRun.poll();  //remove the job we just allocated
 			job.start(time, mach, allocInfo, events, stats);

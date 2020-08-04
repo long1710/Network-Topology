@@ -20,8 +20,7 @@ import simulator.allocator.AllocInfo;
 public class SimpleMachine extends Machine {
 
 	private static final boolean debug = false;   //whether to include debug printouts
-	public int counter = 0;
-	public int counter_out = 0;
+
 	public SimpleMachine(int procs) {
 		//takes number of processors
 		numProcs = procs;
@@ -53,11 +52,9 @@ public class SimpleMachine extends Machine {
 
 	public void allocate(AllocInfo allocInfo) {
 		//allocate processors
-		int num = allocInfo.job.getProcsNeeded();  //number of processors
-		if(counter < 10){
 
-			counter++;
-		}
+		int num = allocInfo.job.getProcsNeeded();  //number of processors
+
 		if(debug)
 			System.err.println("allocate(" + allocInfo.job + "); " +
 					(numAvail - num) + " processors free");
@@ -74,9 +71,7 @@ public class SimpleMachine extends Machine {
 		//deallocate processors
 
 		int num = allocInfo.job.getProcsNeeded();  //number of processors
-		if(counter_out < 10){
-			counter_out++;
-		}
+
 		if(debug)
 			System.err.println("deallocate(" + allocInfo.job + "); " +
 					(numAvail + num) + " processors free");

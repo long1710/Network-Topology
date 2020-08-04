@@ -24,6 +24,7 @@ public abstract class Allocator implements HasSetupInfo {
     public boolean canAllocate(Job j) {
         //returns whether j can be allocated
         //default strategies are non-contig so "true" if enough free processors
+
         return (machine.numFreeProcessors() >= j.getProcsNeeded());
     }
 

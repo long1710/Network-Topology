@@ -16,8 +16,7 @@ package simulator;
 import java.io.File;
 import java.util.*;
 import simulator.allocator.*;
-import simulator.fatTreeMachine.FatTree;
-import simulator.fatTreeMachine.PollardAllocator;
+import simulator.fatTreeMachine.*;
 import simulator.scheduler.*;
 import mapping.*;
 
@@ -165,7 +164,7 @@ public class Main {
 		allocatorFactory.registerClass("GranularMBS", GranularMBSAllocator.class);
 		allocatorFactory.registerClass("FirstFitContig", FirstFitContiguousAllocator.class);
 		allocatorFactory.registerClass("MaxPeriphLengthAllocator", MPLAllocator.class);
-		allocatorFactory.registerClass("rndFatTree", PollardAllocator.class);
+		allocatorFactory.registerClass("PollardAllocator", PollardAllocator.class);
 
 		comparatorFactory.registerClass("fifo", FIFOComparator.class);
 		comparatorFactory.registerClass("largefirst", LargestFirstComparator.class);
@@ -279,6 +278,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		initialize();
+
 		String traceFileName = parseArgs(args);  //name of trace
 
 		PriorityQueue<Event> events = new PriorityQueue<Event>();
@@ -303,25 +303,21 @@ public class Main {
 
 			//check for invalid jobs
 			if (j.getProcsNeeded() <= 0) {
-				//System.out.println("line1 execute");
 				Main.warning("Job " + j.getJobNum() + " requests " + j.getProcsNeeded() +
 						" processors; ignoring it");
 				continue;
 			}
 			if (j.getActualTime() < 0){  //time 0 also a bit strange, but perhaps rounded down
-				//System.out.println("line 2 execute");
 				Main.warning("Job " + j.getJobNum() + " has running time of " + j.getActualTime() +
 						"; ignoring it");
 				continue;
 			}
-			if(j.getProcsNeeded() > machine.numFreeProcessors()){
-				//System.out.println("line 3 execute");
+			if(j.getProcsNeeded() > machine.numFreeProcessors())
 				Main.error("Job "+j.getJobNum()+" requires "+j.getProcsNeeded()+" processors but"+
 						" only "+machine.numFreeProcessors()+" are in the machine");
-			}
 
 			if(jobsHaveDim) {
-				//System.out.println("this work");
+
 				ContiguousJob c = (ContiguousJob) j;
 				Mesh mach = (Mesh) machine;
 
@@ -364,9 +360,9 @@ public class Main {
 			ArrivalEvent ae = new ArrivalEvent(j);
 			events.add(ae);
 		}		
-		
+			
 		runSim(machine, scheduler, allocator, events, traceFileName);
-		System.out.println("simulation finish");
+		
 		allocator.done();
 	}
 	
@@ -485,7 +481,7 @@ public class Main {
 	
 	private static void runSim(Machine mach, Scheduler sched, Allocator alloc,
 			PriorityQueue<Event> events, String traceName)  {
-		//System.out.println("sim start");
+				
 		ActualStatistics stats = new ActualStatistics(mach, sched, alloc, traceName, accurateEsts);
 	
 		if(reportProgress)
@@ -494,14 +490,12 @@ public class Main {
 		boolean sw=true;
 		int prnum=0;
 		while(events.size() > 0) {
-			//System.out.println("event check");
 			Event e = events.poll();  //remove first event
 			
 			if (e instanceof ArrivalEvent && (calcStrictFST || calcRelaxedFST) ){			//check whether it is arrival or not
 				if(calcStrictFST){					
 					estimateFST(mach, alloc, sched, events, e, stats, false, false,traceName);	
 				}
-
 				if(calcRelaxedFST){	
 					//Scheduler duplicate =  ((CopyableScheduler)sched).copy();
 					//Statistics dummy = new Statistics(mach, duplicate, alloc, traceName, accurateEsts);
@@ -514,7 +508,7 @@ public class Main {
 			previousEventTime=currentTime;
 			
 			e.happen(mach, alloc, sched, events, stats);
-			
+				
 			if(reportProgress && prnum==0){
 				if(!sw)
 					System.err.print("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
